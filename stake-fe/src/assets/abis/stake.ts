@@ -165,7 +165,7 @@ export const stakeAbi = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "MetaNodeReward",
+        "name": "rccReward",
         "type": "uint256"
       }
     ],
@@ -379,11 +379,11 @@ export const stakeAbi = [
       {
         "indexed": true,
         "internalType": "contract IERC20",
-        "name": "MetaNode",
+        "name": "RCC",
         "type": "address"
       }
     ],
-    "name": "SetMetaNode",
+    "name": "SetRCC",
     "type": "event"
   },
   {
@@ -392,11 +392,11 @@ export const stakeAbi = [
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "MetaNodePerBlock",
+        "name": "rccPerBlock",
         "type": "uint256"
       }
     ],
-    "name": "SetMetaNodePerBlock",
+    "name": "SetRCCPerBlock",
     "type": "event"
   },
   {
@@ -455,7 +455,7 @@ export const stakeAbi = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "totalMetaNode",
+        "name": "totalRCC",
         "type": "uint256"
       }
     ],
@@ -572,7 +572,7 @@ export const stakeAbi = [
   },
   {
     "inputs": [],
-    "name": "MetaNode",
+    "name": "RCC",
     "outputs": [
       {
         "internalType": "contract IERC20",
@@ -795,7 +795,7 @@ export const stakeAbi = [
     "inputs": [
       {
         "internalType": "contract IERC20",
-        "name": "_MetaNode",
+        "name": "_RCC",
         "type": "address"
       },
       {
@@ -810,7 +810,7 @@ export const stakeAbi = [
       },
       {
         "internalType": "uint256",
-        "name": "_MetaNodePerBlock",
+        "name": "_rccPerBlock",
         "type": "uint256"
       }
     ],
@@ -866,7 +866,7 @@ export const stakeAbi = [
         "type": "address"
       }
     ],
-    "name": "pendingMetaNode",
+    "name": "pendingRCC",
     "outputs": [
       {
         "internalType": "uint256",
@@ -895,7 +895,7 @@ export const stakeAbi = [
         "type": "uint256"
       }
     ],
-    "name": "pendingMetaNodeByBlockNumber",
+    "name": "pendingRCCByBlockNumber",
     "outputs": [
       {
         "internalType": "uint256",
@@ -933,7 +933,7 @@ export const stakeAbi = [
       },
       {
         "internalType": "uint256",
-        "name": "accMetaNodePerST",
+        "name": "accRCCPerST",
         "type": "uint256"
       },
       {
@@ -983,7 +983,7 @@ export const stakeAbi = [
   },
   {
     "inputs": [],
-    "name": "MetaNodePerBlock",
+    "name": "rccPerBlock",
     "outputs": [
       {
         "internalType": "uint256",
@@ -1070,11 +1070,11 @@ export const stakeAbi = [
     "inputs": [
       {
         "internalType": "contract IERC20",
-        "name": "_MetaNode",
+        "name": "_RCC",
         "type": "address"
       }
     ],
-    "name": "setMetaNode",
+    "name": "setRCC",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1083,11 +1083,11 @@ export const stakeAbi = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_MetaNodePerBlock",
+        "name": "_rccPerBlock",
         "type": "uint256"
       }
     ],
-    "name": "setMetaNodePerBlock",
+    "name": "setRCCPerBlock",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1282,12 +1282,12 @@ export const stakeAbi = [
       },
       {
         "internalType": "uint256",
-        "name": "finishedMetaNode",
+        "name": "finishedRCC",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "pendingMetaNode",
+        "name": "pendingRCC",
         "type": "uint256"
       }
     ],

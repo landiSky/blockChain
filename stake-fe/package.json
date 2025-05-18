@@ -1,5 +1,5 @@
 {
-  "name": "MetaNode-stake-fe",
+  "name": "meta-node-stake-fe",
   "private": true,
   "version": "0.1.0",
   "scripts": {
@@ -10,20 +10,28 @@
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
+    "@headlessui/react": "^1.7.18",
     "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.16.7",
-    "@rainbow-me/rainbowkit": "^2.1.4",
+    "@rainbow-me/rainbowkit": "^2.2.5",
     "@tanstack/react-query": "^5.51.11",
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.0.8",
     "next": "^14.2.3",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
+    "react-icons": "^5.0.1",
     "react-toastify": "^10.0.5",
+    "tailwind-merge": "^2.2.1",
     "viem": "2.17.0",
     "wagmi": "^2.12.0"
   },
   "devDependencies": {
     "@types/node": "^18.19.3",
     "@types/react": "^18.3.0",
+    "autoprefixer": "^10.4.18",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
     "typescript": "5.4.2"
   }
 }
