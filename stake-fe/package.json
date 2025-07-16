@@ -1,5 +1,5 @@
 {
-  "name": "meta-node-stake-fe",
+  "name": "stake-coin",
   "private": true,
   "version": "0.1.0",
   "scripts": {
@@ -8,30 +8,41 @@
     "start": "next start"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.0",
-    "@emotion/styled": "^11.13.0",
-    "@headlessui/react": "^1.7.18",
-    "@mui/lab": "^5.0.0-alpha.173",
-    "@mui/material": "^5.16.7",
-    "@rainbow-me/rainbowkit": "^2.2.5",
-    "@tanstack/react-query": "^5.51.11",
-    "clsx": "^2.1.0",
-    "framer-motion": "^11.0.8",
-    "next": "^14.2.3",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
-    "react-icons": "^5.0.1",
-    "react-toastify": "^10.0.5",
-    "tailwind-merge": "^2.2.1",
-    "viem": "2.17.0",
-    "wagmi": "^2.12.0"
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@headlessui/react": "^2.2.4",
+    "@mui/lab": "^7.0.0-beta.14",
+    "@mui/material": "^7.2.0",
+    "@rainbow-me/rainbowkit": "^2.2.8",
+    "@tanstack/react-query": "^5.55.3",
+    "autoprefixer": "^10.4.21",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.5",
+    "next": "^15.3.3",
+    "postcss": "^8.5.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0",
+    "react-toastify": "^11.0.5",
+    "tailwind-merge": "^3.3.1",
+    "viem": "2.29.2",
+    "wagmi": "^2.15.6"
   },
   "devDependencies": {
-    "@types/node": "^18.19.3",
-    "@types/react": "^18.3.0",
-    "autoprefixer": "^10.4.18",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "5.4.2"
+    "@types/node": "^20.14.8",
+    "@types/react": "^19.1.8",
+    "eslint-config-next": "^15.1.7",
+    "tailwindcss": "^3.3.6",
+    "typescript": "5.5.4"
+  },
+  "overrides": {
+    "@vanilla-extract/sprinkles": "1.6.3",
+    "@vanilla-extract/css": "1.16.0",
+    "@vanilla-extract/dynamic": "2.1.2"
+  },
+  "resolutions": {
+    "@vanilla-extract/sprinkles": "1.6.3",
+    "@vanilla-extract/css": "1.16.0",
+    "@vanilla-extract/dynamic": "2.1.2"
   }
 }

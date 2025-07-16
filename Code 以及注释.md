@@ -2,7 +2,7 @@
 
 ## 代码
 
-```
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -679,7 +679,7 @@ contract MetaNodeStake is
 
 这个函数用于初始化合约的状态，包括设置 MetaNode 代币地址、起始区块、结束区块以及每个区块的 MetaNode 奖励。
 
-```
+```solidity
 function initialize(
     IERC20 _MetaNode,
     uint256 _startBlock,
@@ -706,7 +706,7 @@ function initialize(
 
 这个函数用于更新指定质押池的状态，包括最后奖励区块和累计每个质押代币的 MetaNode 数量。
 
-```
+```solidity
 function updatePool(uint256 _pid) public checkPid(_pid) {
     Pool storage pool_ = pool[_pid]; // 从数组中获取指定的质押池引用
     if (block.number <= pool_.lastRewardBlock) {
@@ -732,7 +732,7 @@ function updatePool(uint256 _pid) public checkPid(_pid) {
 
 这个函数允许用户将代币质押到指定的池中。
 
-```
+```solidity
 function deposit(uint256 _pid, uint256 _amount) public whenNotPaused checkPid(_pid) {
     Pool storage pool_ = pool[_pid]; // 从数组中获取指定的质押池引用
     User storage user_ = user[_pid][msg.sender]; // 从映射中获取用户的质押信息
