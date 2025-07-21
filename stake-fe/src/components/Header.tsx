@@ -16,6 +16,10 @@ const Header = () => {
       path: '/'
     },
     {
+      name: 'Claim',
+      path: '/claim'
+    },
+    {
       name: 'Withdrawal',
       path: '/withdraw'
     }

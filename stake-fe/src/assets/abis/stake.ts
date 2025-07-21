@@ -35,17 +35,6 @@ export const stakeAbi = [
     "inputs": [
       {
         "internalType": "address",
-        "name": "account",
-        "type": "address"
-      }
-    ],
-    "name": "AddressInsufficientBalance",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
         "name": "implementation",
         "type": "address"
       }
@@ -70,7 +59,7 @@ export const stakeAbi = [
   },
   {
     "inputs": [],
-    "name": "FailedInnerCall",
+    "name": "FailedCall",
     "type": "error"
   },
   {
@@ -165,7 +154,7 @@ export const stakeAbi = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "rccReward",
+        "name": "MetaNodeReward",
         "type": "uint256"
       }
     ],
@@ -353,6 +342,32 @@ export const stakeAbi = [
     "inputs": [
       {
         "indexed": true,
+        "internalType": "contract IERC20",
+        "name": "MetaNode",
+        "type": "address"
+      }
+    ],
+    "name": "SetMetaNode",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "MetaNodePerBlock",
+        "type": "uint256"
+      }
+    ],
+    "name": "SetMetaNodePerBlock",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
         "internalType": "uint256",
         "name": "poolId",
         "type": "uint256"
@@ -371,32 +386,6 @@ export const stakeAbi = [
       }
     ],
     "name": "SetPoolWeight",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "contract IERC20",
-        "name": "RCC",
-        "type": "address"
-      }
-    ],
-    "name": "SetRCC",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "rccPerBlock",
-        "type": "uint256"
-      }
-    ],
-    "name": "SetRCCPerBlock",
     "type": "event"
   },
   {
@@ -455,7 +444,7 @@ export const stakeAbi = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "totalRCC",
+        "name": "totalMetaNode",
         "type": "uint256"
       }
     ],
@@ -572,12 +561,25 @@ export const stakeAbi = [
   },
   {
     "inputs": [],
-    "name": "RCC",
+    "name": "MetaNode",
     "outputs": [
       {
         "internalType": "contract IERC20",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "MetaNodePerBlock",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -795,7 +797,7 @@ export const stakeAbi = [
     "inputs": [
       {
         "internalType": "contract IERC20",
-        "name": "_RCC",
+        "name": "_MetaNode",
         "type": "address"
       },
       {
@@ -810,7 +812,7 @@ export const stakeAbi = [
       },
       {
         "internalType": "uint256",
-        "name": "_rccPerBlock",
+        "name": "_MetaNodePerBlock",
         "type": "uint256"
       }
     ],
@@ -866,7 +868,7 @@ export const stakeAbi = [
         "type": "address"
       }
     ],
-    "name": "pendingRCC",
+    "name": "pendingMetaNode",
     "outputs": [
       {
         "internalType": "uint256",
@@ -895,7 +897,7 @@ export const stakeAbi = [
         "type": "uint256"
       }
     ],
-    "name": "pendingRCCByBlockNumber",
+    "name": "pendingMetaNodeByBlockNumber",
     "outputs": [
       {
         "internalType": "uint256",
@@ -933,7 +935,7 @@ export const stakeAbi = [
       },
       {
         "internalType": "uint256",
-        "name": "accRCCPerST",
+        "name": "accMetaNodePerST",
         "type": "uint256"
       },
       {
@@ -976,19 +978,6 @@ export const stakeAbi = [
         "internalType": "bytes32",
         "name": "",
         "type": "bytes32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "rccPerBlock",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -1046,6 +1035,32 @@ export const stakeAbi = [
   {
     "inputs": [
       {
+        "internalType": "contract IERC20",
+        "name": "_MetaNode",
+        "type": "address"
+      }
+    ],
+    "name": "setMetaNode",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_MetaNodePerBlock",
+        "type": "uint256"
+      }
+    ],
+    "name": "setMetaNodePerBlock",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "_pid",
         "type": "uint256"
@@ -1062,32 +1077,6 @@ export const stakeAbi = [
       }
     ],
     "name": "setPoolWeight",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "contract IERC20",
-        "name": "_RCC",
-        "type": "address"
-      }
-    ],
-    "name": "setRCC",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_rccPerBlock",
-        "type": "uint256"
-      }
-    ],
-    "name": "setRCCPerBlock",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1282,12 +1271,12 @@ export const stakeAbi = [
       },
       {
         "internalType": "uint256",
-        "name": "finishedRCC",
+        "name": "finishedMetaNode",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "pendingRCC",
+        "name": "pendingMetaNode",
         "type": "uint256"
       }
     ],

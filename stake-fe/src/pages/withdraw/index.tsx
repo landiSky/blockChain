@@ -67,6 +67,8 @@ const Withdraw = () => {
     try {
       setUnstakeLoading(true);
       const tx = await stakeContract.write.unstake([Pid, parseUnits(amount, 18)]);
+      console.log('stakeContract', stakeContract)
+      console.log('Pid', Pid)
       await waitForTransactionReceipt(data, { hash: tx });
       toast.success('Unstake successful!');
       setAmount('');

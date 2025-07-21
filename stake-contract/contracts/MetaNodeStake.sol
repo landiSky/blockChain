@@ -41,11 +41,11 @@ contract MetaNodeStake is
     4. User's `finishedMetaNode` gets updated.
     */
     struct Pool {
-        // Address of staking token
+        // Address of staking token 质押代币的地址
         address stTokenAddress;
-        // Weight of pool
+        // Weight of pool 不同资金池所占的权重
         uint256 poolWeight;
-        // Last block number that MetaNodes distribution occurs for pool
+        // Last block number that MetaNodes distribution occurs for pool 
         uint256 lastRewardBlock;
         // Accumulated MetaNodes per staking token of pool
         uint256 accMetaNodePerST;
@@ -67,9 +67,9 @@ contract MetaNodeStake is
     struct User {
         // Staking token amount that user provided
         uint256 stAmount;
-        // Finished distributed MetaNodes to user
+        // Finished distributed MetaNodes to user 最终 MetaNode 得到的数量
         uint256 finishedMetaNode;
-        // Pending to claim MetaNodes
+        // Pending to claim MetaNodes 当前可取数量
         uint256 pendingMetaNode;
         // Withdraw request list
         UnstakeRequest[] requests;
