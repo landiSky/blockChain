@@ -26,6 +26,8 @@ const Claim = () => {
     try {
       setClaimLoading(true);
       const tx = await stakeContract.write.claim([Pid]);
+      console.log(tx, '===tx===');
+      
       const res = await waitForTransactionReceipt(data, { hash: tx });
       
       if (res.status === 'success') {
@@ -41,6 +43,8 @@ const Claim = () => {
       console.log(error, 'claim-error');
     }
   }, [stakeContract, data, refresh]);
+
+
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

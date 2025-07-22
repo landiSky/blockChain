@@ -10,11 +10,7 @@ export type RewardsData = {
   lastUpdate: number;
 };
 
-type UserData = {
-  stAmount: bigint;
-  finishedMetaNode: bigint;
-  pendingMetaNode: bigint;
-};
+type UserData = [bigint, bigint, bigint]; // [stAmount, finishedMetaNode, pendingMetaNode]
 
 const useRewards = () => {
   const stakeContract = useStakeContract();
@@ -40,7 +36,7 @@ const useRewards = () => {
       console.log('Staked amount:', stakedAmount);
 
       setRewardsData({
-        pendingReward: formatUnits(userData.pendingMetaNode || BigInt(0), 18),
+        pendingReward: formatUnits(userData[2] || BigInt(0), 18),
         stakedAmount: formatUnits(stakedAmount as bigint || BigInt(0), 18),
         lastUpdate: Date.now()
       });
