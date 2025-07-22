@@ -346,6 +346,7 @@ contract MetaNodeStake is
      *
      * @param _from    From block number (included)
      * @param _to      To block number (exluded)
+     * getMultiplier(pool_.lastRewardBlock, block.number).tryMul(pool_.poolWeight);
      */
     function getMultiplier(uint256 _from, uint256 _to) public view returns(uint256 multiplier) {
         require(_from <= _to, "invalid block");

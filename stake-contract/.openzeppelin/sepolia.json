@@ -20,6 +20,21 @@
       "address": "0x9bEDe77211BA4FFc274385A695BCD4eb4cb2f65D",
       "txHash": "0x1f7800bcdac911f310c6cec5116e7c9d92908192225eb0e405bafb830063ab3e",
       "kind": "uups"
+    },
+    {
+      "address": "0x687B7F2Bbbf0e71DFcA7B90120703e258D1602C6",
+      "txHash": "0x9838dbeedf523f9ade278395822fcc9f6b89a4509724415357476738e24a6c78",
+      "kind": "uups"
+    },
+    {
+      "address": "0xE9EA7ba899415Ab4c843eD9e8f8E0DEfbDEF8032",
+      "txHash": "0x23386f71b5bf0f4de2f8c7f6e4d2aa60c624ca9251becd1561a92e12e218d4fa",
+      "kind": "uups"
+    },
+    {
+      "address": "0xF136927bB54709e548fC77F7ee9947b5Ef3136ff",
+      "txHash": "0xf9174ab0bdcf49cbd144cd73470f32c3ada64d24c7605b62ebdd48775b71ea33",
+      "kind": "uups"
     }
   ],
   "impls": {

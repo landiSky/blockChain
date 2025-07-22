@@ -20,7 +20,7 @@ async function main() {
   // 你需要替换下面的参数为实际的MetaNode代币地址和区块参数
   // const metaNodeTokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // 替换为实际MetaNode代币地址
   const startBlock = 1; // 替换为实际起始区块
-  const endBlock = 8812762; // 替换为实际结束区块
+  const endBlock = 999999999999; // 替换为实际结束区块
   const metaNodePerBlock = ethers.parseUnits("1", 18); // 每区块奖励1个MetaNode（18位精度）
 
   // 3. 部署可升级代理合约

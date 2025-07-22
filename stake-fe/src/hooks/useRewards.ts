@@ -22,6 +22,30 @@ const useRewards = () => {
   });
   const [loading, setLoading] = useState(false);
 
+  const [poolData, setPoolData] = useState<Record<string, string>>({
+    poolWeight: '0',
+    lastRewardBlock: '0',
+    accMetaNodePerShare: '0'
+  });
+
+  const fetchPoolData = useCallback(async () => {
+    if (!stakeContract || !address || !isConnected) return;
+
+    const pool: any[] = await stakeContract.read.pool([Pid]);
+
+    console.log('poolInfo:::', pool);
+    
+    setPoolData({
+      poolWeight: formatUnits(pool[0] || BigInt(0), 18),
+      lastRewardBlock: formatUnits(pool[1] || BigInt(0), 18),
+      accMetaNodePerShare: formatUnits(pool[2] || BigInt(0), 18),
+      stTokenAmount: formatUnits(pool[4] || BigInt(0), 18),
+      minDepositAmount: formatUnits(pool[5] || BigInt(0), 18),
+      unstakeLockedBlocks: formatUnits(pool[6] || BigInt(0), 18),
+      stTokenAddress: pool[0]
+    });
+  }, [stakeContract, address, isConnected]);
+
   const fetchRewardsData = useCallback(async () => {
     if (!stakeContract || !address || !isConnected) return;
 
@@ -57,6 +81,7 @@ const useRewards = () => {
   useEffect(() => {
     if (isConnected && address) {
       fetchRewardsData();
+      fetchPoolData();
     }
   }, [isConnected, address, fetchRewardsData]);
 
@@ -79,6 +104,7 @@ const useRewards = () => {
   return {
     rewardsData,
     loading,
+    poolData,
     refresh,
     canClaim: parseFloat(rewardsData.pendingReward) > 0
   };

@@ -18,7 +18,7 @@ import { Card } from '../../components/ui/Card';
 const Home = () => {
   const stakeContract = useStakeContract();
   const { address, isConnected } = useAccount();
-  const { rewardsData, canClaim, refresh } = useRewards();
+  const { rewardsData, poolData, canClaim, refresh } = useRewards();
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
   const [claimLoading, setClaimLoading] = useState(false);
@@ -124,7 +124,7 @@ const Home = () => {
               <div className="flex flex-col justify-center flex-1 min-w-0 items-center sm:items-start">
                 <span className="text-gray-400 text-base sm:text-lg mb-1">Staked Amount</span>
                 <span className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent leading-tight break-all">
-                  {parseFloat(rewardsData.stakedAmount).toFixed(4)} ETH
+                  {parseFloat(poolData.stTokenAmount || '0').toFixed(4)} ETH
                 </span>
               </div>
             </div>
