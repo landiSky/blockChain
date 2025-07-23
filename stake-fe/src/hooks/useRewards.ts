@@ -3,6 +3,8 @@ import { useAccount } from 'wagmi';
 import { formatUnits } from 'viem';
 import { useStakeContract } from './useContract';
 import { Pid } from '../utils';
+import { addMetaNodeToMetaMask } from '../utils/metamask';
+import { retryWithDelay } from '../utils/retry';
 
 export type RewardsData = {
   pendingReward: string;
@@ -11,6 +13,8 @@ export type RewardsData = {
 };
 
 type UserData = [bigint, bigint, bigint]; // [stAmount, finishedMetaNode, pendingMetaNode]
+
+type PoolData = [string, bigint, bigint, bigint, bigint, bigint, bigint]; // [stTokenAddress, poolWeight, lastRewardBlock, accMetaNodePerST, stTokenAmount, minDepositAmount, unstakeLockedBlocks]
 
 const useRewards = () => {
   const stakeContract = useStakeContract();
@@ -28,23 +32,45 @@ const useRewards = () => {
     accMetaNodePerShare: '0'
   });
 
+  const [metaNodeAddress, setMetaNodeAddress] = useState<string>('');
+
   const fetchPoolData = useCallback(async () => {
     if (!stakeContract || !address || !isConnected) return;
 
-    const pool: any[] = await stakeContract.read.pool([Pid]);
+    try {
+      const pool = await retryWithDelay(() => 
+        stakeContract.read.pool([Pid]) as Promise<PoolData>
+      );
 
-    console.log('poolInfo:::', pool);
-    
-    setPoolData({
-      poolWeight: formatUnits(pool[0] || BigInt(0), 18),
-      lastRewardBlock: formatUnits(pool[1] || BigInt(0), 18),
-      accMetaNodePerShare: formatUnits(pool[2] || BigInt(0), 18),
-      stTokenAmount: formatUnits(pool[4] || BigInt(0), 18),
-      minDepositAmount: formatUnits(pool[5] || BigInt(0), 18),
-      unstakeLockedBlocks: formatUnits(pool[6] || BigInt(0), 18),
-      stTokenAddress: pool[0]
-    });
+      console.log('poolInfo:::', pool);
+      
+      setPoolData({
+        poolWeight: formatUnits(pool[1] as bigint || BigInt(0), 18),
+        lastRewardBlock: formatUnits(pool[2] as bigint || BigInt(0), 18),
+        accMetaNodePerShare: formatUnits(pool[3] as bigint || BigInt(0), 18),
+        stTokenAmount: formatUnits(pool[4] as bigint || BigInt(0), 18),
+        minDepositAmount: formatUnits(pool[5] as bigint || BigInt(0), 18),
+        unstakeLockedBlocks: formatUnits(pool[6] as bigint || BigInt(0), 18),
+        stTokenAddress: pool[0] as string
+      });
+    } catch (error) {
+      console.error('Failed to fetch pool data:', error);
+    }
   }, [stakeContract, address, isConnected]);
+
+  // 获取MetaNode代币地址
+  const fetchMetaNodeAddress = useCallback(async () => {
+    if (!stakeContract) return;
+
+    try {
+      const address = await retryWithDelay(() => 
+        stakeContract.read.MetaNode() as Promise<string>
+      );
+      setMetaNodeAddress(address as string);
+    } catch (error) {
+      console.error('Failed to fetch MetaNode address:', error);
+    }
+  }, [stakeContract]);
 
   const fetchRewardsData = useCallback(async () => {
     if (!stakeContract || !address || !isConnected) return;
@@ -53,8 +79,12 @@ const useRewards = () => {
       setLoading(true);
       
       // 获取用户数据
-      const userData = await stakeContract.read.user([Pid, address]) as UserData;
-      const stakedAmount = await stakeContract.read.stakingBalance([Pid, address]);
+      const userData = await retryWithDelay(() => 
+        stakeContract.read.user([Pid, address]) as Promise<UserData>
+      );
+      const stakedAmount = await retryWithDelay(() => 
+        stakeContract.read.stakingBalance([Pid, address]) as Promise<bigint>
+      );
 
       console.log('User data:', userData);
       console.log('Staked amount:', stakedAmount);
@@ -82,16 +112,17 @@ const useRewards = () => {
     if (isConnected && address) {
       fetchRewardsData();
       fetchPoolData();
+      fetchMetaNodeAddress();
     }
-  }, [isConnected, address, fetchRewardsData]);
+  }, [isConnected, address, fetchRewardsData, fetchPoolData, fetchMetaNodeAddress]);
 
-  // 定期刷新数据（每30秒）
+  // 定期刷新数据（每60秒）
   useEffect(() => {
     if (!isConnected || !address) return;
 
     const interval = setInterval(() => {
       fetchRewardsData();
-    }, 30000); // 30秒
+    }, 60000); // 60秒
 
     return () => clearInterval(interval);
   }, [isConnected, address, fetchRewardsData]);
@@ -101,11 +132,28 @@ const useRewards = () => {
     fetchRewardsData();
   }, [fetchRewardsData]);
 
+  // 添加MetaNode代币到MetaMask
+  const addMetaNodeToWallet = useCallback(async () => {
+    if (!metaNodeAddress) {
+      console.error('MetaNode地址未获取到');
+      return false;
+    }
+
+    try {
+      return await addMetaNodeToMetaMask(metaNodeAddress);
+    } catch (error) {
+      console.error('添加MetaNode到钱包失败:', error);
+      return false;
+    }
+  }, [metaNodeAddress]);
+
   return {
     rewardsData,
     loading,
     poolData,
+    metaNodeAddress,
     refresh,
+    addMetaNodeToWallet,
     canClaim: parseFloat(rewardsData.pendingReward) > 0
   };
 };

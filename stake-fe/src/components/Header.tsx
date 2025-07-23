@@ -16,13 +16,13 @@ const Header = () => {
       path: '/'
     },
     {
+      name: 'Withdrawal',
+      path: '/withdraw'
+    },
+    {
       name: 'Claim',
       path: '/claim'
     },
-    {
-      name: 'Withdrawal',
-      path: '/withdraw'
-    }
   ];
 
   const pathname = usePathname();
