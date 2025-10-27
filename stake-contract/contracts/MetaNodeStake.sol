@@ -48,55 +48,55 @@ contract MetaNodeStake is
         // Last block number that MetaNodes distribution occurs for pool 
         uint256 lastRewardBlock;
         // Accumulated MetaNodes per staking token of pool
-        uint256 accMetaNodePerST;
+        uint256 accMetaNodePerST; // 质押 1个ETH经过1个区块高度，能拿到 n 个MetaNode
         // Staking token amount
-        uint256 stTokenAmount;
+        uint256 stTokenAmount; // 质押的代币数量
         // Min staking amount
-        uint256 minDepositAmount;
+        uint256 minDepositAmount; // 最小质押数量
         // Withdraw locked blocks
-        uint256 unstakeLockedBlocks;
+        uint256 unstakeLockedBlocks; // 解质押锁定的区块高度 UNSTAKE  withdraw
     }
 
     struct UnstakeRequest {
         // Request withdraw amount
-        uint256 amount;
+        uint256 amount; // 用户取消质押的代币数量，要取出多少个 token
         // The blocks when the request withdraw amount can be released
-        uint256 unlockBlocks;
+        uint256 unlockBlocks; // 解质押的区块高度
     }
 
-    struct User {
+    struct User { // 记录用户相对每个资金池 的质押记录
         // Staking token amount that user provided
-        uint256 stAmount;
+        uint256 stAmount; // 用户在当前资金池，质押的代币数量
         // Finished distributed MetaNodes to user 最终 MetaNode 得到的数量
-        uint256 finishedMetaNode;
+        uint256 finishedMetaNode; // 用户在当前资金池，已经领取的 MetaNode 数量
         // Pending to claim MetaNodes 当前可取数量
-        uint256 pendingMetaNode;
+        uint256 pendingMetaNode; // 用户在当前资金池，当前可领取的 MetaNode 数量
         // Withdraw request list
-        UnstakeRequest[] requests;
+        UnstakeRequest[] requests; // 用户在当前资金池，取消质押的记录
     }
 
     // ************************************** STATE VARIABLES **************************************
     // First block that MetaNodeStake will start from
-    uint256 public startBlock;
+    uint256 public startBlock; // 质押开始区块高度
     // First block that MetaNodeStake will end from
-    uint256 public endBlock;
+    uint256 public endBlock; // 质押结束区块高度
     // MetaNode token reward per block
-    uint256 public MetaNodePerBlock;
+    uint256 public MetaNodePerBlock; // 每个区块高度，MetaNode 的奖励数量
 
     // Pause the withdraw function
-    bool public withdrawPaused;
+    bool public withdrawPaused; // 是否暂停提现
     // Pause the claim function
-    bool public claimPaused;
+    bool public claimPaused; // 是否暂停领取
 
     // MetaNode token
-    IERC20 public MetaNode;
+    IERC20 public MetaNode; // MetaNode 代币地址
 
     // Total pool weight / Sum of all pool weights
-    uint256 public totalPoolWeight;
-    Pool[] public pool;
+    uint256 public totalPoolWeight; // 所有资金池的权重总和
+    Pool[] public pool; // 资金池列表
 
     // pool id => user address => user info
-    mapping (uint256 => mapping (address => User)) public user;
+    mapping (uint256 => mapping (address => User)) public user; // 资金池 id => 用户地址 => 用户信息
 
     // ************************************** EVENT **************************************
 

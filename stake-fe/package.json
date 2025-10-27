@@ -13,7 +13,7 @@
     "@headlessui/react": "^2.2.4",
     "@mui/lab": "^7.0.0-beta.14",
     "@mui/material": "^7.2.0",
-    "@rainbow-me/rainbowkit": "^2.2.8",
+    "@rainbow-me/rainbowkit": "2.2.8",
     "@tanstack/react-query": "^5.55.3",
     "autoprefixer": "^10.4.21",
     "clsx": "^2.1.1",
@@ -26,7 +26,7 @@
     "react-toastify": "^11.0.5",
     "tailwind-merge": "^3.3.1",
     "viem": "2.29.2",
-    "wagmi": "^2.15.6"
+    "wagmi": "2.13.3"
   },
   "devDependencies": {
     "@types/node": "^20.14.8",

@@ -2,7 +2,7 @@
 
 📖 ​**内容概览**
 
-质押 native currency 的 defi 项目 <-- 这里没解释什么是 navtie currency 
+质押 native currency 的 defi 项目
 
 ✅ ​**预期成果**
 
