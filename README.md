@@ -9,7 +9,7 @@
 
 
 📖 ​**业务时间线**
-![staking-timeline (1)](https://github.com/user-attachments/assets/03fa3cd6-c9d5-46e3-a890-6e866aa22a85)
+![staking-timeline (2)](https://github.com/user-attachments/assets/2670c3f7-13d4-43d7-b1a9-24b163190954)
 
 
 ✅ ​**预期成果**
