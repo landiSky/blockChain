@@ -1,5 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
+
+/*
+合约测试脚本，验证质押、解除质押、奖励分配等核心功能的正确性。
+*/
+
 import {Test, console2} from "forge-std/Test.sol";
 
 import {MetaNodeStake} from "../contracts/MetaNodeStake.sol";

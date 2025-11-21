@@ -9,3 +9,7 @@ contract MetaNodeToken is ERC20{
          _mint(msg.sender, 10000000*1_000_000_000_000_000_000);
     }
 }
+
+/*
+奖励代币合约，实现标准 ERC20 代币，用于发放质押奖励。
+*/
