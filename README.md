@@ -2,7 +2,15 @@
 
 📖 ​**内容概览**
 
-质押 native currency（ETH） 的 defi 项目
+质押 native currency 的 defi 项目
+
+📖 ​**业务图**
+![未命名绘图](https://github.com/user-attachments/assets/8a3acf28-b8e3-489b-b824-3fd99bfa68ab)
+
+
+📖 ​**业务时间线**
+![staking-timeline (2)](https://github.com/user-attachments/assets/2670c3f7-13d4-43d7-b1a9-24b163190954)
+
 
 ✅ ​**预期成果**
 
