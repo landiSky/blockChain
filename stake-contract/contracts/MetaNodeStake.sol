@@ -601,6 +601,7 @@ contract MetaNodeStake is
         require(_amount > pool_.minDepositAmount, "deposit amount is too small");
 
         if(_amount > 0) {
+            // 把用户的质押代币从用户地址转到合约地址。
             IERC20(pool_.stTokenAddress).safeTransferFrom(msg.sender, address(this), _amount);
         }
 
@@ -613,6 +614,9 @@ contract MetaNodeStake is
      * @param _pid       Id of the pool to be withdrawn from
      * @param _amount    amount of staking tokens to be withdrawn
      */
+     // 用户发起解除质押请求的方法
+     // 用户调用此方法时，合约会检查用户是否有足够的质押余额，并更新奖励状态，然后把用户请求的解押金额和解锁区块号记录下来，等待用户后续提现。
+     // whenNotPaused() 修饰符保证合约未被暂停。
     function unstake(uint256 _pid, uint256 _amount) public whenNotPaused() checkPid(_pid) whenNotWithdrawPaused() {
         Pool storage pool_ = pool[_pid];
         User storage user_ = user[_pid][msg.sender];
@@ -620,7 +624,10 @@ contract MetaNodeStake is
         require(user_.stAmount >= _amount, "Not enough staking token balance");
 
         updatePool(_pid);
-
+        // 计算用户在当前池中未领取的 MetaNode 奖励。   
+        // 用户质押量乘以每个质押代币累计奖励，除以 1 ether（精度缩放），减去已领取奖励，得到当前应得但未领取的奖励。
+        // 把这部分奖励累加到用户的 pendingMetaNode 中，等待用户后续领取。
+        // 这样做可以确保用户在解除质押时不会丢失任何应得奖励。    
         uint256 pendingMetaNode_ = user_.stAmount * pool_.accMetaNodePerST / (1 ether) - user_.finishedMetaNode;
 
         if(pendingMetaNode_ > 0) {
@@ -628,14 +635,18 @@ contract MetaNodeStake is
         }
 
         if(_amount > 0) {
+            // 减少用户的质押余额。
             user_.stAmount = user_.stAmount - _amount;
             user_.requests.push(UnstakeRequest({
                 amount: _amount,
+                // 记录解锁区块号
+                // 用户发起解押请求后，需要等待一定数量的区块（pool_.unstakeLockedBlocks）才能真正提现。
                 unlockBlocks: block.number + pool_.unstakeLockedBlocks
             }));
         }
-
+        // 减少池的总质押量。
         pool_.stTokenAmount = pool_.stTokenAmount - _amount;
+        // 更新用户已领取奖励为当前质押量对应的累计奖励，防止重复计算。
         user_.finishedMetaNode = user_.stAmount * pool_.accMetaNodePerST / (1 ether);
 
         emit RequestUnstake(msg.sender, _pid, _amount);
@@ -652,6 +663,7 @@ contract MetaNodeStake is
 
         uint256 pendingWithdraw_;
         uint256 popNum_;
+        // 计算并累计所有已解锁的解押请求金额
         for (uint256 i = 0; i < user_.requests.length; i++) {
             if (user_.requests[i].unlockBlocks > block.number) {
                 break;
@@ -659,16 +671,18 @@ contract MetaNodeStake is
             pendingWithdraw_ = pendingWithdraw_ + user_.requests[i].amount;
             popNum_++;
         }
-
+        // 先将已解锁的请求移到数组前面
         for (uint256 i = 0; i < user_.requests.length - popNum_; i++) {
             user_.requests[i] = user_.requests[i + popNum_];
         }
-
+        // 移除已解锁的请求
         for (uint256 i = 0; i < popNum_; i++) {
             user_.requests.pop();
         }
 
         if (pendingWithdraw_ > 0) {
+            // 将已解锁的质押金额转给用户
+            // 判断当前池的质押代币是不是原生币（如 ETH）
             if (pool_.stTokenAddress == address(0x0)) {
                 _safeETHTransfer(msg.sender, pendingWithdraw_);
             } else {
