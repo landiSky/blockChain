@@ -28,7 +28,7 @@ npx hardhat compile
 
 还要自己将其重命名为 `stake-contract/ignition/modules/MetaNode.js` . 差点没被害死╮(╯_╰)╭ AI也查不出来!!!
 
-所以这步完全可以用 Remix 取代!
+
 
 
 ## 部署 MetaNode token
